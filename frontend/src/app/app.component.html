@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Notification Form</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-sucess" role="alert">
+      {{successMessage}}
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form name="employeeForm" [formGroup]="employeeForm" (ngSubmit)="save()">
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
+          <label for="firstName">First name</label>
+          <input type="text" class="form-control" name="firstName" formControlName="firstName">
+          <div
+            *ngIf="employeeForm.get('firstName')!.invalid && (employeeForm.get('firstName')!.dirty || employeeForm.get('firstName')!.touched)">
+            <small class="form-text text-danger" *ngIf="employeeForm.get('firstName')?.errors?.required">
+              First Name is required.
+            </small>
+            <small class="form-text text-danger" *ngIf="employeeForm.get('firstName')?.errors?.pattern">
+              First Name is invalid.
+            </small>
+          </div>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+          <label for="lastName">Last name</label>
+          <input type="text" class="form-control" name="lastName" formControlName="lastName">
+          <div
+            *ngIf="employeeForm.get('lastName')!.invalid && (employeeForm.get('lastName')!.dirty || employeeForm.get('lastName')!.touched)">
+            <small class="form-text text-danger" *ngIf="employeeForm.get('lastName')?.errors?.required">
+              Last Name is required.
+            </small>
+            <small class="form-text text-danger" *ngIf="employeeForm.get('lastName')?.errors?.pattern">
+              Last Name is invalid.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="notification">How would you preferto be notified?</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="checkboxes-0">
+            <input type="checkbox" id="notifyByEmail" name="notifyByEmail" formControlName="notifyByEmail">
+            Email
+          </label>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="checkboxes-0">
+            <input type="checkbox" id="notifyByPhone" name="notifyByPhone" formControlName="notifyByPhone">
+            Phone Number
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3"><input type="email" class="form-control" name="email" formControlName="email">
+       <div>
+        <small class="form-text text-danger" *ngIf="employeeForm.value.notifyByEmail && !employeeForm.value.email">
+          Email is required.
+        </small>
+        <small class="form-text text-danger" *ngIf="employeeForm.value.email && employeeForm.get('email')?.errors?.email">
+          Email is invalid.
+        </small>
+       </div>
+        </div>
+        <div class="col-md-6 mb-3"><input type="phone" class="form-control" name="phone" formControlName="phone">
+        <div>
+          <small class="form-text text-danger" *ngIf="employeeForm.value.notifyByPhone && !employeeForm.value.phone">
+            Phone Number is required.
+          </small>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <label for="country">Supervisor</label>
+          <select id="supervisor" class="form-control" name="supervisor" formControlName="supervisor" #supervisor>
+            <option selected>Choose...</option>
+            <option *ngFor="let s of supervisors" [ngValue]="s">
+              {{s}}</option>
+          </select>
+          <div
+            *ngIf="employeeForm.get('supervisor')!.invalid && (employeeForm.get('supervisor')!.dirty || employeeForm.get('supervisor')!.touched)">
+            <small class="form-text text-danger" *ngIf="employeeForm.get('supervisor')?.errors?.required">
+              Supervisor is required.
+            </small>
+          </div>
+        </div>
+      </div>
+      <hr class="mb-4">
+      <button type="submit" [disabled]="employeeForm.invalid || isSaving" class="btn btn-success">Submit</button>
+      <br><br>
+    </form>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
