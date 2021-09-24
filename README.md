@@ -1,4 +1,4 @@
-# Packaging your Spring Boot and Angular 2+ projects together
+# Spring Boot and Angular 2+ projects together
 
 I’m using Java 11, Maven 3.6.1, Spring Boot 2.2.1, Node 10.16.0 and Angular 8.2.14.
 
